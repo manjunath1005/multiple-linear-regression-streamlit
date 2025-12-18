@@ -90,7 +90,7 @@ st.markdown(f"""
 """,unsafe_allow_html=True)
 
 # Predeiction
-st.markdown('<div clas="card">',unsafe_allow_html=True)
+st.markdown('<div class="card">',unsafe_allow_html=True)
 st.subheader("Predict Tip Amount")
 
 col1, col2 = st.columns(2)
@@ -136,7 +136,3 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown('</div>', unsafe_allow_html=True)
-
-st.markdown(f'<div class="prediction-box">Predicted Tip : $ {tip:.2f}</div',unsafe_allow_html=True)
-
-st.markdown('</div>',unsafe_allow_html=True)
