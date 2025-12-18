@@ -93,10 +93,50 @@ st.markdown(f"""
 st.markdown('<div clas="card">',unsafe_allow_html=True)
 st.subheader("Predict Tip Amount")
 
-bill=st.slider("Total Bill ($)",float(df.total_bill.min()),float(df.total_bill.max()),30.0)
-size= st.slider("Group Size",int(df['size'].min()),int(df['size'].max()),2)
-input_scaled= scaler.transform([[bill,size]])
-tip= model.predict(input_scaled)[0]
+col1, col2 = st.columns(2)
+
+with col1:
+    bill_slider = st.slider(
+        "Total Bill ($)",
+        float(df.total_bill.min()),
+        float(df.total_bill.max()),
+        30.0
+    )
+    size_slider = st.slider(
+        "Group Size",
+        int(df['size'].min()),
+        int(df['size'].max()),
+        2
+    )
+
+with col2:
+    bill_input = st.number_input(
+        "Enter Total Bill ($)",
+        min_value=float(df.total_bill.min()),
+        max_value=float(df.total_bill.max()),
+        value=bill_slider
+    )
+    size_input = st.number_input(
+        "Enter Group Size",
+        min_value=int(df['size'].min()),
+        max_value=int(df['size'].max()),
+        value=size_slider,
+        step=1
+    )
+
+bill = bill_input
+size = size_input
+
+# Prediction
+input_scaled = scaler.transform([[bill, size]])
+tip = model.predict(input_scaled)[0]
+
+st.markdown(
+    f'<div class="prediction-box">Predicted Tip : $ {tip:.2f}</div>',
+    unsafe_allow_html=True
+)
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown(f'<div class="prediction-box">Predicted Tip : $ {tip:.2f}</div',unsafe_allow_html=True)
+
 st.markdown('</div>',unsafe_allow_html=True)
